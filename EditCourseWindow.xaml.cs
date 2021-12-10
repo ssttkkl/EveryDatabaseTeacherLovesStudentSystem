@@ -22,10 +22,10 @@ namespace EveryDatabaseTeacherLovesStudentSystem
   public partial class EditCourseWindow : Window, IEditCourseView
   {
     IEditCourseController controller;
-    public EditCourseWindow(MyDatabase db, NewOrEdit mode, Course course)
+    public EditCourseWindow(NewOrEdit mode, Course course)
     {
       InitializeComponent();
-      controller = new EditCourseController(this, db, mode, course);
+      controller = new EditCourseController(this, mode, course);
 
       if (mode == NewOrEdit.Edit)
       {

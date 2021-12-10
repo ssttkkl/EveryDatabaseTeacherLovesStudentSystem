@@ -22,7 +22,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
   {
     private IStudentCourseController controller;
 
-    public StudentCourseWindow(MyDatabase db, Student stu)
+    public StudentCourseWindow(Student stu)
     {
       InitializeComponent();
 
@@ -33,13 +33,13 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       LbAge.Content = stu.Age.ToString();
       LbDept.Content = stu.Dept.ToString();
 
-      controller = new StudentCourseController(this, db, stu);
+      controller = new StudentCourseController(this, stu);
       controller.LoadAllStudentCourses();
     }
 
-    public void ShowEditStudentCourseView(MyDatabase db, NewOrEdit mode, StudentCourse stuCourse, Student student)
+    public void ShowEditStudentCourseView(NewOrEdit mode, StudentCourse stuCourse, Student student)
     {
-      EditStudentCourseWindow view = new EditStudentCourseWindow(db, mode, stuCourse, student, null);
+      EditStudentCourseWindow view = new EditStudentCourseWindow(mode, stuCourse, student, null);
       view.Closed += (object sender, EventArgs e) =>
       {
         controller.LoadAllStudentCourses();

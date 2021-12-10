@@ -10,35 +10,33 @@ namespace EveryDatabaseTeacherLovesStudentSystem
   class CourseStudentController : ICourseStudentController
   {
     private ICourseStudentView view;
-    private MyDatabase db;
     public Course course { get; private set; }
 
-    public CourseStudentController(ICourseStudentView view, MyDatabase db, Course course)
+    public CourseStudentController(ICourseStudentView view, Course course)
     {
       this.view = view;
-      this.db = db;
       this.course = course;
     }
 
     public void LoadAllStudentCourses()
     {
-      Task<IEnumerable<StudentCourse>> task = db.StudentCourseDao.GetByCourse(course);
+      Task<IEnumerable<StudentCourse>> task = MyDatabase.Instance.StudentCourseDao.GetByCourse(course);
       task.Wait();
       view.UpdateStudentCourseData(task.Result);
     }
     public void AddStudentCourse()
     {
-      view.ShowEditStudentCourseView(db, Constraint.Utils.NewOrEdit.New, null, course);
+      view.ShowEditStudentCourseView(Constraint.Utils.NewOrEdit.New, null, course);
     }
 
     public void EditStudentCourse(StudentCourse stuCourse)
     {
-      view.ShowEditStudentCourseView(db, Constraint.Utils.NewOrEdit.Edit, stuCourse, course);
+      view.ShowEditStudentCourseView(Constraint.Utils.NewOrEdit.Edit, stuCourse, course);
     }
 
     public void RemoveStudentCourse(StudentCourse stuCourse)
     {
-      Task task = db.StudentCourseDao.DeleteOne(stuCourse);
+      Task task = MyDatabase.Instance.StudentCourseDao.DeleteOne(stuCourse);
       task.Wait();
     }
   }

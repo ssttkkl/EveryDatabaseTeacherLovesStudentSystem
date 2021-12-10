@@ -8,13 +8,13 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 {
   public class CourseDao : Dao
   {
-    public CourseDao(MyDatabase db) : base(db) { }
+    public CourseDao(MySqlConnection conn) : base(conn) { }
 
     public async Task<IEnumerable<Course>> GetAllAsync()
     {
       string sql = "SELECT C.CNO, C.CNAME, C.CPNO, C.CCREDIT, C2.CNAME FROM C " +
         "LEFT JOIN C C2 ON C.CPNO = C2.CNO;";
-      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      MySqlCommand cmd = new MySqlCommand(sql, conn);
       using DbDataReader reader = await cmd.ExecuteReaderAsync();
 
       LinkedList<Course> result = new LinkedList<Course>();
@@ -37,7 +37,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       string sql = "SELECT C.CNO, C.CNAME, C.CPNO, C.CCREDIT, C2.CNAME FROM C " +
         "LEFT JOIN C C2 ON C.CPNO = C2.CNO " +
         "WHERE C.CNO = @number;";
-      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      MySqlCommand cmd = new MySqlCommand(sql, conn);
       cmd.Parameters.AddWithValue("number", number);
       using DbDataReader reader = await cmd.ExecuteReaderAsync();
 
@@ -59,7 +59,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
     public async Task InsertOne(Course course)
     {
       string sql = "INSERT INTO C(CNO, CNAME, CPNO, CCREDIT) VALUES (@number, @name, @prevCourseNumber, @credit);";
-      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      MySqlCommand cmd = new MySqlCommand(sql, conn);
       cmd.Parameters.AddWithValue("number", course.Number);
       cmd.Parameters.AddWithValue("name", course.Name);
       cmd.Parameters.AddWithValue("prevCourseNumber", course.PrevCourseNumber);
@@ -71,7 +71,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
     public async Task UpdateOne(Course course)
     {
       string sql = "UPDATE C SET CNAME = @name, CPNO = @prevCourseNumber, CCREDIT = @credit WHERE CNO = @number";
-      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      MySqlCommand cmd = new MySqlCommand(sql, conn);
       cmd.Parameters.AddWithValue("number", course.Number);
       cmd.Parameters.AddWithValue("name", course.Name);
       cmd.Parameters.AddWithValue("prevCourseNumber", course.PrevCourseNumber);
@@ -83,7 +83,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
     public async Task DeleteOne(Course course)
     {
       string sql = "DELETE FROM C WHERE C.CNO = @number";
-      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      MySqlCommand cmd = new MySqlCommand(sql, conn);
       cmd.Parameters.AddWithValue("number", course.Number);
 
       await cmd.ExecuteNonQueryAsync();

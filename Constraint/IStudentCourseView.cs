@@ -9,6 +9,6 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Constraint
   interface IStudentCourseView
   {
     void UpdateStudentCourseData(IEnumerable<StudentCourse> data);
-    void ShowEditStudentCourseView(MyDatabase db, NewOrEdit mode, StudentCourse stuCourse, Student student);
+    void ShowEditStudentCourseView(NewOrEdit mode, StudentCourse stuCourse, Student student);
   }
 }

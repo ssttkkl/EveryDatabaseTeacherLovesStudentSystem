@@ -11,18 +11,16 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
   public class EditCourseController : IEditCourseController
   {
     private IEditCourseView view;
-    private MyDatabase db;
     private NewOrEdit mode;
     private Course course;
 
-    public EditCourseController(IEditCourseView view, MyDatabase db, NewOrEdit mode, Course course)
+    public EditCourseController(IEditCourseView view, NewOrEdit mode, Course course)
     {
       this.view = view;
-      this.db = db;
       this.mode = mode;
       this.course = course;
 
-      Task<IEnumerable<Course>> task = db.CourseDao.GetAllAsync();
+      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetAllAsync();
       task.Wait();
       var courses = task.Result;
       if (mode == NewOrEdit.Edit)
@@ -37,11 +35,11 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
       Task task;
       if (mode == NewOrEdit.New)
       {
-        task = db.CourseDao.InsertOne(course);
+        task = MyDatabase.Instance.CourseDao.InsertOne(course);
       }
       else
       {
-        task = db.CourseDao.UpdateOne(course);
+        task = MyDatabase.Instance.CourseDao.UpdateOne(course);
       }
       task.Wait();
     }

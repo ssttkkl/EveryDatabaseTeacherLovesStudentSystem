@@ -21,7 +21,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
   public partial class CourseStudentWindow : Window, ICourseStudentView
   {
     private ICourseStudentController controller;
-    public CourseStudentWindow(MyDatabase db, Course course)
+    public CourseStudentWindow(Course course)
     {
       InitializeComponent();
 
@@ -30,13 +30,13 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       LbPrevCourseName.Content = course.PrevCourseName;
       LbCredit.Content = course.Credit;
 
-      controller = new CourseStudentController(this, db, course);
+      controller = new CourseStudentController(this, course);
       controller.LoadAllStudentCourses();
     }
 
-    public void ShowEditStudentCourseView(MyDatabase db, NewOrEdit mode, StudentCourse stuCourse, Course course)
+    public void ShowEditStudentCourseView(NewOrEdit mode, StudentCourse stuCourse, Course course)
     {
-      EditStudentCourseWindow view = new EditStudentCourseWindow(db, mode, stuCourse, null, course);
+      EditStudentCourseWindow view = new EditStudentCourseWindow(mode, stuCourse, null, course);
       view.Closed += (object sender, EventArgs e) =>
       {
         controller.LoadAllStudentCourses();

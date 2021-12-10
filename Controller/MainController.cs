@@ -11,81 +11,79 @@ namespace EveryDatabaseTeacherLovesStudentSystem
   class MainController : IMainController
   {
     private IMainView view;
-    private MyDatabase db = new MyDatabase("localhost", 3306, "root", "hwl1098042114", "for_study");
 
     public MainController(IMainView view)
     {
       this.view = view;
-      db.Open();
     }
 
     public void LoadAllCourses()
     {
-      Task<IEnumerable<Course>> task = db.CourseDao.GetAllAsync();
+      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetAllAsync();
       task.Wait();
       view.UpdateCourseData(task.Result);
     }
 
     public void LoadAllStudents()
     {
-      Task<IEnumerable<Student>> task = db.StudentDao.GetAllAsync();
+      Task<IEnumerable<Student>> task = MyDatabase.Instance.StudentDao.GetAllAsync();
       task.Wait();
       view.UpdateStudentData(task.Result);
     }
 
     public void SearchCourseByNumber(int number)
     {
-      Task<IEnumerable<Course>> task = db.CourseDao.GetByNumber(number);
+      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetByNumber(number);
       task.Wait();
       view.UpdateCourseData(task.Result);
     }
 
     public void SearchStudentByNumber(int number)
     {
-      Task<IEnumerable<Student>> task = db.StudentDao.GetByNumber(number);
+      Task<IEnumerable<Student>> task = MyDatabase.Instance.StudentDao.GetByNumber(number);
       task.Wait();
       view.UpdateStudentData(task.Result);
     }
 
     public void ViewStudentDetail(Student stu)
     {
-      view.ShowStudentCourseView(db, stu);
+      view.ShowStudentCourseView(stu);
     }
 
     public void ViewCourseDetail(Course course)
     {
-      view.ShowCourseStudentView(db, course);
+      view.ShowCourseStudentView(course);
     }
 
     public void AddStudent()
     {
-      view.ShowEditStudentView(db, Constraint.Utils.NewOrEdit.New, null);
+      view.ShowEditStudentView(Constraint.Utils.NewOrEdit.New, null);
     }
 
     public void EditStudent(Student stu)
     {
-      view.ShowEditStudentView(db, Constraint.Utils.NewOrEdit.Edit, stu);
+      view.ShowEditStudentView(Constraint.Utils.NewOrEdit.Edit, stu);
     }
 
     public void RemoveStudent(Student stu)
     {
-      Task task = db.StudentDao.DeleteOne(stu);
+      Task task = MyDatabase.Instance.StudentDao.DeleteOne(stu);
       task.Wait();
     }
 
     public void AddCourse()
     {
-      view.ShowEditCourseView(db, Constraint.Utils.NewOrEdit.New, null);
+      view.ShowEditCourseView(Constraint.Utils.NewOrEdit.New, null);
     }
 
     public void EditCourse(Course course)
     {
-      view.ShowEditCourseView(db, Constraint.Utils.NewOrEdit.Edit, course);
+      view.ShowEditCourseView(Constraint.Utils.NewOrEdit.Edit, course);
     }
 
     public void RemoveCourse(Course course)
     {
-      Task task = db.CourseDao.DeleteOne(course);
+      Task task = MyDatabase.Instance.CourseDao.DeleteOne(course);
       task.Wait();
     }
   }

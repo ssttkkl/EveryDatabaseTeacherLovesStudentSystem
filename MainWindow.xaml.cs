@@ -29,9 +29,14 @@ namespace EveryDatabaseTeacherLovesStudentSystem
     public MainWindow()
     {
       InitializeComponent();
-      controller = new MainController(this);
-      controller.LoadAllStudents();
-      controller.LoadAllCourses();
+
+      LoginWindow login = new LoginWindow();
+      login.Closed += (sender, e) => {
+        controller = new MainController(this);
+        controller.LoadAllStudents();
+        controller.LoadAllCourses();
+      };
+      login.ShowDialog();
     }
 
     public void UpdateStudentData(IEnumerable<Student> data)
@@ -44,21 +49,21 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       DgCourse.ItemsSource = data;
     }
 
-    public void ShowStudentCourseView(MyDatabase db, Student stu)
+    public void ShowStudentCourseView(Student stu)
     {
-      StudentCourseWindow view = new StudentCourseWindow(db, stu);
+      StudentCourseWindow view = new StudentCourseWindow(stu);
       view.Show();
     }
 
-    public void ShowCourseStudentView(MyDatabase db, Course course)
+    public void ShowCourseStudentView(Course course)
     {
-      CourseStudentWindow view = new CourseStudentWindow(db, course);
+      CourseStudentWindow view = new CourseStudentWindow(course);
       view.Show();
     }
 
-    public void ShowEditStudentView(MyDatabase db, NewOrEdit mode, Student stu)
+    public void ShowEditStudentView(NewOrEdit mode, Student stu)
     {
-      EditStudentWindow view = new EditStudentWindow(db, mode, stu);
+      EditStudentWindow view = new EditStudentWindow( mode, stu);
       view.Closed += (object sender, EventArgs e) =>
       {
         controller.LoadAllStudents();
@@ -66,9 +71,9 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       view.ShowDialog();
     }
 
-    public void ShowEditCourseView(MyDatabase db, NewOrEdit mode, Course course)
+    public void ShowEditCourseView(NewOrEdit mode, Course course)
     {
-      EditCourseWindow view = new EditCourseWindow(db, mode, course);
+      EditCourseWindow view = new EditCourseWindow(mode, course);
       view.Closed += (object sender, EventArgs e) =>
       {
         controller.LoadAllCourses();

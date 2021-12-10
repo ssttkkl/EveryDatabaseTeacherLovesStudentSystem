@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,11 +7,11 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 {
   public abstract class Dao
   {
-    protected MyDatabase db;
+    protected MySqlConnection conn;
 
-    public Dao(MyDatabase db)
+    public Dao(MySqlConnection conn)
     {
-      this.db = db;
+      this.conn = conn;
     }
   }
 }
