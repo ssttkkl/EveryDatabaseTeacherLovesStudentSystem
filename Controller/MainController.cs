@@ -56,5 +56,37 @@ namespace EveryDatabaseTeacherLovesStudentSystem
     {
       view.ShowCourseStudentView(db, course);
     }
+
+    public void AddStudent()
+    {
+      view.ShowEditStudentView(db, Constraint.Utils.NewOrEdit.New, null);
+    }
+
+    public void EditStudent(Student stu)
+    {
+      view.ShowEditStudentView(db, Constraint.Utils.NewOrEdit.Edit, stu);
+    }
+
+    public void RemoveStudent(Student stu)
+    {
+      Task task = db.StudentDao.DeleteOne(stu);
+      task.Wait();
+      LoadAllStudents();
+    }
+
+    public void AddCourse()
+    {
+      throw new NotImplementedException();
+    }
+
+    public void EditCourse(Course course)
+    {
+      throw new NotImplementedException();
+    }
+
+    public void RemoveCourse(Course course)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

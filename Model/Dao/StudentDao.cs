@@ -54,5 +54,43 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       }
       return result;
     }
+
+    public async Task InsertOne(Student stu)
+    {
+      string sql = "INSERT INTO S(SCLASS, SNO, SNAME, SSEX, SAGE, SDEPT) VALUES (@cls, @number, @name, @sex, @age, @dept);";
+      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      cmd.Parameters.AddWithValue("cls", stu.Cls);
+      cmd.Parameters.AddWithValue("number", stu.Number);
+      cmd.Parameters.AddWithValue("name", stu.Name);
+      cmd.Parameters.AddWithValue("sex", stu.Sex);
+      cmd.Parameters.AddWithValue("age", stu.Age);
+      cmd.Parameters.AddWithValue("dept", stu.Dept);
+
+      await cmd.ExecuteNonQueryAsync();
+    }
+
+    public async Task UpdateOne(Student stu)
+    {
+      string sql = "UPDATE S SET SNAME = @name, SSEX = @sex, SAGE = @age, SDEPT = @dept WHERE SCLASS = @cls AND SNO = @number;";
+      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      cmd.Parameters.AddWithValue("cls", stu.Cls);
+      cmd.Parameters.AddWithValue("number", stu.Number);
+      cmd.Parameters.AddWithValue("name", stu.Name);
+      cmd.Parameters.AddWithValue("sex", stu.Sex);
+      cmd.Parameters.AddWithValue("age", stu.Age);
+      cmd.Parameters.AddWithValue("dept", stu.Dept);
+
+      await cmd.ExecuteNonQueryAsync();
+    }
+
+    public async Task DeleteOne(Student stu)
+    {
+      string sql = "DELETE FROM S WHERE S.SCLASS = @stuCls AND S.SNO = @stuNumber";
+      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      cmd.Parameters.AddWithValue("stuCls", stu.Cls);
+      cmd.Parameters.AddWithValue("stuNumber", stu.Number);
+
+      await cmd.ExecuteNonQueryAsync();
+    }
   }
 }

@@ -9,9 +9,15 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Constraint
   {
     void LoadAllStudents();
     void SearchStudentByNumber(int number);
+    void AddStudent();
+    void EditStudent(Student stu);
+    void RemoveStudent(Student stu);
     void ViewStudentDetail(Student stu);
     void LoadAllCourses();
     void SearchCourseByNumber(int number);
+    void AddCourse();
+    void EditCourse(Course course);
+    void RemoveCourse(Course course);
     void ViewCourseDetail(Course course);
   }
 }

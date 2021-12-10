@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EveryDatabaseTeacherLovesStudentSystem
+namespace EveryDatabaseTeacherLovesStudentSystem.Model
 {
   public class Student
   {
-    public int Cls { get;  }
-    public int Number { get;  }
-    public string Name { get;  }
-    public string Sex { get;  }
-    public int Age { get;  }
-    public string Dept { get;  }
+    public int Cls { get; }
+    public int Number { get; }
+    public string Name { get; }
+    public string Sex { get; }
+    public int Age { get; }
+    public string Dept { get; }
 
     public Student(int cls, int number, string name, string sex, int age, string dept)
     {

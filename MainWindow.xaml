@@ -11,9 +11,9 @@
             <TabItem Header="学生">
                 <DockPanel Background="#FFE5E5E5">
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button x:Name="BtnAddStu" Content="添加" Padding="16,8"/>
-                        <Button x:Name="BtnEditStu" Content="编辑" Padding="16,8"/>
-                        <Button x:Name="BtnRemoveStu" Content="删除" Padding="16,8"/>
+                        <Button x:Name="BtnAddStu" Content="添加" Padding="16,8" Click="BtnAddStu_Click"/>
+                        <Button x:Name="BtnEditStu" Content="编辑" Padding="16,8" Click="BtnEditStu_Click"/>
+                        <Button x:Name="BtnRemoveStu" Content="删除" Padding="16,8" Click="BtnRemoveStu_Click"/>
                         <Button x:Name="BtnViewStu" Content="详情" Padding="16,8" Click="BtnViewStu_Click"/>
                         <Button x:Name="BtnRefreshStu" Content="重新加载" Padding="16,8" Margin="32,0,0,0" Click="BtnStuRefresh_Click"/>
                         <TextBox x:Name="TbStuNum" Padding="8,8" Margin="32,0,0,0" Width="150"/>

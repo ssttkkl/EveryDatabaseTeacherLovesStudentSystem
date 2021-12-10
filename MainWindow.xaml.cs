@@ -1,4 +1,5 @@
 ﻿using EveryDatabaseTeacherLovesStudentSystem.Constraint;
+using EveryDatabaseTeacherLovesStudentSystem.Constraint.Utils;
 using EveryDatabaseTeacherLovesStudentSystem.Model;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,21 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       view.Show();
     }
 
+    public void ShowEditStudentView(MyDatabase db, NewOrEdit mode, Student stu)
+    {
+      EditStudentWindow view = new EditStudentWindow(db, mode, stu);
+      view.Closed += (object sender, EventArgs e) =>
+      {
+        controller.LoadAllStudents();
+      };
+      view.ShowDialog();
+    }
+
+    public void ShowEditCourseView(MyDatabase db, NewOrEdit mode, Course course)
+    {
+      throw new NotImplementedException();
+    }
+
     private void BtnStuRefresh_Click(object sender, RoutedEventArgs e)
     {
       controller.LoadAllStudents();
@@ -102,6 +118,38 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       if (DgCourse.SelectedIndex != -1)
       {
         controller.ViewCourseDetail((Course)DgCourse.SelectedItem);
+      }
+    }
+
+    private void BtnRemoveStu_Click(object sender, RoutedEventArgs e)
+    {
+      if (DgStudent.SelectedIndex != -1)
+      {
+        MessageBoxResult result = MessageBox.Show("确定删除该学生信息吗？", "确认", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result == MessageBoxResult.Yes)
+        {
+          try
+          {
+            controller.RemoveStudent((Student)DgStudent.SelectedItem);
+          }
+          catch (Exception exc)
+          {
+            MessageBox.Show(exc.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
+          }
+        }
+      }
+    }
+
+    private void BtnAddStu_Click(object sender, RoutedEventArgs e)
+    {
+      controller.AddStudent();
+    }
+
+    private void BtnEditStu_Click(object sender, RoutedEventArgs e)
+    {
+      if (DgStudent.SelectedIndex != -1)
+      {
+        controller.EditStudent((Student) DgStudent.SelectedItem);
       }
     }
   }
