@@ -8,7 +8,19 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 {
   public class StudentDao : Dao
   {
-    public StudentDao(MySqlConnection conn) : base(conn) { }
+    public StudentDao(MySqlConnection conn) : base(conn)
+    {
+      try
+      {
+        string sql = "CREATE TABLE S(SCLASS INT, SNO INT, SNAME VARCHAR(10), SSEX VARCHAR(2), SAGE INT, SDEPT CHAR(2), PRIMARY KEY(SCLASS, SNO));";
+        MySqlCommand cmd = new MySqlCommand(sql, conn);
+        cmd.ExecuteNonQuery();
+      }
+      catch (MySqlException)
+      {
+        // pass
+      }
+    }
 
     public async Task<IEnumerable<Student>> GetAllAsync()
     {
@@ -111,7 +123,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 
     public async Task DeleteOne(Student stu)
     {
-      string sql = "DELETE FROM S WHERE S.SCLASS = @stuCls AND S.SNO = @stuNumber";
+      string sql = "DELETE FROM S WHERE S.SCLASS = @stuCls AND S.SNO = @stuNumber;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
       cmd.Parameters.AddWithValue("stuCls", stu.Cls);
       cmd.Parameters.AddWithValue("stuNumber", stu.Number);

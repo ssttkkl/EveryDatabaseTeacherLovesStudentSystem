@@ -8,7 +8,19 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 {
   public class StudentCourseDao : Dao
   {
-    public StudentCourseDao(MySqlConnection conn) : base(conn) { }
+    public StudentCourseDao(MySqlConnection conn) : base(conn)
+    {
+      try
+      {
+        string sql = "CREATE TABLE SC(SCLASS INT, SNO INT, CNO INT, GRADE INT, PRIMARY KEY(SCLASS, SNO, CNO));";
+        MySqlCommand cmd = new MySqlCommand(sql, conn);
+        cmd.ExecuteNonQuery();
+      }
+      catch (MySqlException)
+      {
+        // pass
+      }
+    }
 
     public async Task<IEnumerable<StudentCourse>> GetByStudent(Student stu)
     {

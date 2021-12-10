@@ -14,15 +14,26 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model
     public CourseDao CourseDao { get; private set; }
     public StudentCourseDao StudentCourseDao { get; private set; }
 
-    private MyDatabase()
-    {
-    }
-
     public void OpenConnection(string server, int port, string user, string passwd, string database)
     {
-      conn = new MySqlConnection();
-      conn.ConnectionString = string.Format("server={0};port={1};user={2};password={3};database={4}", server, port, user, passwd, database);
+      conn = new MySqlConnection
+      {
+        ConnectionString = string.Format("server={0};port={1};user={2};password={3};", server, port, user, passwd, database)
+      };
       conn.Open();
+
+      try
+      {
+        string sql = "CREATE DATABASE " + database;
+        MySqlCommand cmd = new MySqlCommand(sql, conn);
+        cmd.ExecuteNonQuery();
+      }
+      catch (Exception)
+      {
+        // pass
+      }
+
+      conn.ChangeDatabase(database);
 
       StudentDao = new StudentDao(conn);
       CourseDao = new CourseDao(conn);

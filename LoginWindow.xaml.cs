@@ -28,8 +28,15 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       int port;
       if (int.TryParse(TbPort.Text, out port))
       {
-        MyDatabase.Instance.OpenConnection(TbHost.Text, port, TbUser.Text, TbPasswd.Password, TbDbName.Text);
-        Close();
+        try
+        {
+          MyDatabase.Instance.OpenConnection(TbHost.Text, port, TbUser.Text, TbPasswd.Password, TbDbName.Text);
+          Close();
+        }
+        catch (Exception exc)
+        {
+          MessageBox.Show("连接数据库时发生错误：" + exc.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
       }
     }
 

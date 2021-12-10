@@ -8,7 +8,19 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 {
   public class CourseDao : Dao
   {
-    public CourseDao(MySqlConnection conn) : base(conn) { }
+    public CourseDao(MySqlConnection conn) : base(conn)
+    {
+      try
+      {
+        string sql = "CREATE TABLE C(CNO INT PRIMARY KEY, CNAME VARCHAR(20), CPNO INT, CCREDIT INT);";
+        MySqlCommand cmd = new MySqlCommand(sql, conn);
+        cmd.ExecuteNonQuery();
+      }
+      catch (MySqlException)
+      {
+        // pass
+      }
+    }
 
     public async Task<IEnumerable<Course>> GetAllAsync()
     {
@@ -70,7 +82,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 
     public async Task UpdateOne(Course course)
     {
-      string sql = "UPDATE C SET CNAME = @name, CPNO = @prevCourseNumber, CCREDIT = @credit WHERE CNO = @number";
+      string sql = "UPDATE C SET CNAME = @name, CPNO = @prevCourseNumber, CCREDIT = @credit WHERE CNO = @number;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
       cmd.Parameters.AddWithValue("number", course.Number);
       cmd.Parameters.AddWithValue("name", course.Name);
@@ -82,7 +94,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 
     public async Task DeleteOne(Course course)
     {
-      string sql = "DELETE FROM C WHERE C.CNO = @number";
+      string sql = "DELETE FROM C WHERE C.CNO = @number;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
       cmd.Parameters.AddWithValue("number", course.Number);
 
