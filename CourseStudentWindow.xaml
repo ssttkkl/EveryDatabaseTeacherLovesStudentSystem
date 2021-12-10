@@ -1,0 +1,26 @@
+﻿<Window x:Class="EveryDatabaseTeacherLovesStudentSystem.CourseStudentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EveryDatabaseTeacherLovesStudentSystem"
+        mc:Ignorable="d"
+        Title="CourseStudentWindow" Height="450" Width="800">
+    <DockPanel Background="#FFE5E5E5">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button x:Name="BtnAdd" Content="添加" Padding="16,8"/>
+            <Button x:Name="BtnEdit" Content="编辑" Padding="16,8"/>
+            <Button x:Name="BtnRemove" Content="删除" Padding="16,8"/>
+            <Button x:Name="BtnRefresh" Content="重新加载" Padding="16,8" Margin="32,0,0,0" Click="BtnRefresh_Click"/>
+        </StackPanel>
+        <DataGrid x:Name="DgStudent" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding StudentCls}" Header="学生班级" Width="*"/>
+                <DataGridTextColumn Binding="{Binding StudentNumber}" Header="学生学号" Width="*"/>
+                <DataGridTextColumn Binding="{Binding StudentName}" Header="学生姓名" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Grade}" Header="成绩" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Credit}" Header="学分" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
