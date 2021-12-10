@@ -19,7 +19,7 @@
                         <TextBox x:Name="TbStuNum" Padding="8,8" Margin="32,0,0,0" Width="150"/>
                         <Button x:Name="BtnSearchStu" Content="按学号查询" Padding="16,8" Click="BtnSearchStu_Click"/>
                     </StackPanel>
-                    <DataGrid x:Name="DgStudent" AutoGenerateColumns="False" SelectionMode="Single">
+                    <DataGrid x:Name="DgStudent" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
                         <DataGrid.Columns >
                             <DataGridTextColumn Binding="{Binding Cls}" Header="班级" Width="*"/>
                             <DataGridTextColumn Binding="{Binding Number}" Header="学号" Width="*"/>
@@ -42,7 +42,7 @@
                         <TextBox x:Name="TbCourseNum" Padding="8,8" Margin="32,0,0,0" Width="150"/>
                         <Button x:Name="BtnSearchCourse" Content="按序号查询" Padding="16,8" Click="BtnSearchCourse_Click"/>
                     </StackPanel>
-                    <DataGrid x:Name="DgCourse" AutoGenerateColumns="False">
+                    <DataGrid x:Name="DgCourse" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Number}" Header="序号" Width="*"/>
                             <DataGridTextColumn Binding="{Binding Name}" Header="名称" Width="*"/>

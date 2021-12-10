@@ -136,6 +136,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
           try
           {
             controller.RemoveStudent((Student)DgStudent.SelectedItem);
+            controller.LoadAllStudents();
           }
           catch (Exception exc)
           {
@@ -181,6 +182,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
           try
           {
             controller.RemoveCourse((Course)DgCourse.SelectedItem);
+            controller.LoadAllCourses();
           }
           catch (Exception exc)
           {

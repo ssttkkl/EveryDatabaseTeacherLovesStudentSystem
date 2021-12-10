@@ -5,8 +5,9 @@ using System.Text;
 
 namespace EveryDatabaseTeacherLovesStudentSystem.Constraint
 {
-  interface IEditCourseController
+  public interface IEditStudentCourseView
   {
-    void Save(Course course);
+    void UpdateCourseItems(IEnumerable<Course> courses);
+    void UpdateStudentName(string studentName);
   }
 }

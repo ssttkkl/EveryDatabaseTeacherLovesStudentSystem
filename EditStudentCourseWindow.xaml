@@ -1,0 +1,47 @@
+﻿<Window x:Class="EveryDatabaseTeacherLovesStudentSystem.EditStudentCourseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EveryDatabaseTeacherLovesStudentSystem"
+        mc:Ignorable="d"
+        Title="EditStudentCourseWindow" Height="250" Width="320">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="5" Margin="8" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Right" Grid.Column="0">
+            <Button x:Name="BtnSave" Content="保存" Padding="16,8" IsDefault="True" Click="BtnSave_Click"/>
+            <Button x:Name="BtnCancel" Content="取消" Padding="16,8" Margin="8,0,0,0" IsCancel="True" Click="BtnCancel_Click"/>
+        </StackPanel>
+        <Label Content="学生班级" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Content="学生学号" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center"/>
+        <Label Content="学生姓名" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center"/>
+        <Label Content="课程" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center"/>
+        <Label Content="成绩" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center"/>
+
+        <TextBox x:Name="TbStuCls" Grid.Column="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2" TextChanged="TbStuCls_TbStuNum_TextChanged"/>
+        <TextBox x:Name="TbStuNum" Grid.Column="1" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2" TextChanged="TbStuCls_TbStuNum_TextChanged"/>
+        <Label x:Name="LbStuName" Content="" Grid.Column="1" VerticalAlignment="Center" Margin="16,0,8,0" Grid.Row="2" />
+        <ComboBox x:Name="CbCourse" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="16,0,8,0">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <ComboBoxItem Content="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox x:Name="TbGrade" Grid.Column="1" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2"/>
+       
+
+    </Grid>
+</Window>

@@ -12,16 +12,16 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model
     public int Grade { get; }
     public string StudentName { get; }
     public string CourseName { get; }
-    public int Credit { get; }
+    public int? Credit { get; }
 
-    public StudentCourse(int studentCls, int studentNumber, int courseNumber, int grade, string studentName, string courseName, int credit)
+    public StudentCourse(int studentCls, int studentNumber, int courseNumber, int grade, string studentName = null, string courseName = null, int? credit = null)
     {
       StudentCls = studentCls;
       StudentNumber = studentNumber;
       CourseNumber = courseNumber;
       Grade = grade;
-      StudentName = studentName ?? throw new ArgumentNullException(nameof(studentName));
-      CourseName = courseName ?? throw new ArgumentNullException(nameof(courseName));
+      StudentName = studentName;
+      CourseName = courseName;
       Credit = credit;
     }
   }

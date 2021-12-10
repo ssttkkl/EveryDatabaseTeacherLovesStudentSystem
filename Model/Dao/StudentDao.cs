@@ -55,6 +55,32 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       return result;
     }
 
+    public async Task<Student> GetOneByClsAndNumber(int cls, int number)
+    {
+      string sql = "SELECT SCLASS, SNO, SNAME, SSEX, SAGE, SDEPT FROM S WHERE SCLASS = @cls AND SNO = @number;";
+      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      cmd.Parameters.AddWithValue("cls", cls);
+      cmd.Parameters.AddWithValue("number", number);
+      using DbDataReader reader = await cmd.ExecuteReaderAsync();
+
+      if (await reader.ReadAsync())
+      {
+        return new Student
+        (
+          reader.GetInt32(0),
+          reader.GetInt32(1),
+          reader.GetString(2),
+          reader.GetString(3),
+          reader.GetInt32(4),
+          reader.GetString(5)
+        );
+      }
+      else
+      {
+        return null;
+      }
+    }
+
     public async Task InsertOne(Student stu)
     {
       string sql = "INSERT INTO S(SCLASS, SNO, SNAME, SSEX, SAGE, SDEPT) VALUES (@cls, @number, @name, @sex, @age, @dept);";

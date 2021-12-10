@@ -23,10 +23,10 @@
             <Button x:Name="BtnSave" Content="保存" Padding="16,8" IsDefault="True" Click="BtnSave_Click"/>
             <Button x:Name="BtnCancel" Content="取消" Padding="16,8" Margin="8,0,0,0" IsCancel="True" Click="BtnCancel_Click"/>
         </StackPanel>
-        <Label Content="序号" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label Content="名称" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center"/>
-        <Label Content="先修课程" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="学分" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center"/>
+        <Label Content="序号" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Content="名称" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center"/>
+        <Label Content="先修课程" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center"/>
+        <Label Content="学分" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center"/>
 
         <TextBox x:Name="TbNumber" Grid.Column="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2"/>
         <TextBox x:Name="TbName" Grid.Column="1" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2"/>

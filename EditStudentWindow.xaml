@@ -24,12 +24,12 @@
             <Button x:Name="BtnSave" Content="保存" Padding="16,8" IsDefault="True" Click="BtnSave_Click"/>
             <Button x:Name="BtnCancel" Content="取消" Padding="16,8" Margin="8,0,0,0" IsCancel="True" Click="BtnCancel_Click"/>
         </StackPanel>
-        <Label Content="班级" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Label Content="学号" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center"/>
-        <Label Content="姓名" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center"/>
-        <Label Content="性别" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center"/>
-        <Label Content="年龄" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center"/>
-        <Label Content="系" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center"/>
+        <Label Content="班级" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Content="学号" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center"/>
+        <Label Content="姓名" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center"/>
+        <Label Content="性别" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center"/>
+        <Label Content="年龄" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center"/>
+        <Label Content="系" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center"/>
         <TextBox x:Name="TbCls" Grid.Column="1" HorizontalAlignment="Stretch" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0"/>
         <TextBox x:Name="TbNumber" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0"/>
         <TextBox x:Name="TbName" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0"/>

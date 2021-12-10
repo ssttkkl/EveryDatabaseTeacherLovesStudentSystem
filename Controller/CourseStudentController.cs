@@ -26,5 +26,20 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       task.Wait();
       view.UpdateStudentCourseData(task.Result);
     }
+    public void AddStudentCourse()
+    {
+      view.ShowEditStudentCourseView(db, Constraint.Utils.NewOrEdit.New, null, course);
+    }
+
+    public void EditStudentCourse(StudentCourse stuCourse)
+    {
+      view.ShowEditStudentCourseView(db, Constraint.Utils.NewOrEdit.Edit, stuCourse, course);
+    }
+
+    public void RemoveStudentCourse(StudentCourse stuCourse)
+    {
+      Task task = db.StudentCourseDao.DeleteOne(stuCourse);
+      task.Wait();
+    }
   }
 }

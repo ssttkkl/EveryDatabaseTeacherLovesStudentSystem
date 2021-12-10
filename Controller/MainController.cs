@@ -71,7 +71,6 @@ namespace EveryDatabaseTeacherLovesStudentSystem
     {
       Task task = db.StudentDao.DeleteOne(stu);
       task.Wait();
-      LoadAllStudents();
     }
 
     public void AddCourse()
@@ -88,7 +87,6 @@ namespace EveryDatabaseTeacherLovesStudentSystem
     {
       Task task = db.CourseDao.DeleteOne(course);
       task.Wait();
-      LoadAllCourses();
     }
   }
 }

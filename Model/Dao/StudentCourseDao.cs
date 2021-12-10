@@ -60,5 +60,40 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       }
       return result;
     }
+
+    public async Task InsertOne(StudentCourse stuCourse)
+    {
+      string sql = "INSERT INTO SC(SCLASS, SNO, CNO, GRADE) VALUES (@stuCls, @stuNumber, @courseNumber, @grade);";
+      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      cmd.Parameters.AddWithValue("stuCls", stuCourse.StudentCls);
+      cmd.Parameters.AddWithValue("stuNumber", stuCourse.StudentNumber);
+      cmd.Parameters.AddWithValue("courseNumber", stuCourse.CourseNumber);
+      cmd.Parameters.AddWithValue("grade", stuCourse.Grade);
+
+      await cmd.ExecuteNonQueryAsync();
+    }
+
+    public async Task UpdateOne(StudentCourse stuCourse)
+    {
+      string sql = "UPDATE SC SET GRADE = @grade WHERE SC.SCLASS = @stuCls AND SC.SNO = @stuNumber AND SC.CNO = @courseNumber;";
+      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      cmd.Parameters.AddWithValue("stuCls", stuCourse.StudentCls);
+      cmd.Parameters.AddWithValue("stuNumber", stuCourse.StudentNumber);
+      cmd.Parameters.AddWithValue("courseNumber", stuCourse.CourseNumber);
+      cmd.Parameters.AddWithValue("grade", stuCourse.Grade);
+
+      await cmd.ExecuteNonQueryAsync();
+    }
+
+    public async Task DeleteOne(StudentCourse stuCourse)
+    {
+      string sql = "DELETE FROM SC WHERE SC.SCLASS = @stuCls AND SC.SNO = @stuNumber AND SC.CNO = @courseNumber;";
+      MySqlCommand cmd = new MySqlCommand(sql, db.conn);
+      cmd.Parameters.AddWithValue("stuCls", stuCourse.StudentCls);
+      cmd.Parameters.AddWithValue("stuNumber", stuCourse.StudentNumber);
+      cmd.Parameters.AddWithValue("courseNumber", stuCourse.CourseNumber);
+
+      await cmd.ExecuteNonQueryAsync();
+    }
   }
 }

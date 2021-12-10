@@ -10,10 +10,9 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model
     public string Name { get; }
     public int? PrevCourseNumber { get; }
     public int Credit { get; }
-
     public string PrevCourseName { get; }
 
-    public Course(int number, string name, int? prevCourseNumber, int credit, string prevCourseName)
+    public Course(int number, string name, int? prevCourseNumber, int credit, string prevCourseName = null)
     {
       Number = number;
       Name = name ?? throw new ArgumentNullException(nameof(name));

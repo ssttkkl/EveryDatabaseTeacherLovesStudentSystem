@@ -92,7 +92,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       {
         try
         {
-          controller.Save(new Course(number, name, prevCourseNumber, credit, null));
+          controller.Save(new Course(number, name, prevCourseNumber, credit));
         }
         catch (Exception exc)
         {
