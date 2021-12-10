@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EveryDatabaseTeacherLovesStudentSystem"
         mc:Ignorable="d"
-        Title="EditCourseWindow" Height="200" Width="320">
+        Title="编辑课程信息" Height="200" Width="320">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

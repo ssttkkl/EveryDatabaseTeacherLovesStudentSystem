@@ -24,6 +24,12 @@ namespace EveryDatabaseTeacherLovesStudentSystem
     public CourseStudentWindow(MyDatabase db, Course course)
     {
       InitializeComponent();
+
+      LbNumber.Content = course.Number;
+      LbName.Content = course.Name;
+      LbPrevCourseName.Content = course.PrevCourseName;
+      LbCredit.Content = course.Credit;
+
       controller = new CourseStudentController(this, db, course);
       controller.LoadAllStudentCourses();
     }
