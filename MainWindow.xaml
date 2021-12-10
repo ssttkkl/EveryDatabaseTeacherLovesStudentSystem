@@ -34,9 +34,9 @@
             <TabItem Header="课程">
                 <DockPanel Background="#FFE5E5E5">
                     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button x:Name="BtnAddCourse" Content="添加" Padding="16,8"/>
-                        <Button x:Name="BtnEditCourse" Content="编辑" Padding="16,8"/>
-                        <Button x:Name="BtnRemoveCourse" Content="删除" Padding="16,8"/>
+                        <Button x:Name="BtnAddCourse" Content="添加" Padding="16,8" Click="BtnAddCourse_Click"/>
+                        <Button x:Name="BtnEditCourse" Content="编辑" Padding="16,8" Click="BtnEditCourse_Click"/>
+                        <Button x:Name="BtnRemoveCourse" Content="删除" Padding="16,8" Click="BtnRemoveCourse_Click"/>
                         <Button x:Name="BtnViewCourse" Content="详情" Padding="16,8" Click="BtnViewCourse_Click"/>
                         <Button x:Name="BtnRefreshCourse" Content="重新加载" Padding="16,8" Margin="32,0,0,0" Click="BtnRefreshCourse_Click"/>
                         <TextBox x:Name="TbCourseNum" Padding="8,8" Margin="32,0,0,0" Width="150"/>

@@ -68,7 +68,12 @@ namespace EveryDatabaseTeacherLovesStudentSystem
 
     public void ShowEditCourseView(MyDatabase db, NewOrEdit mode, Course course)
     {
-      throw new NotImplementedException();
+      EditCourseWindow view = new EditCourseWindow(db, mode, course);
+      view.Closed += (object sender, EventArgs e) =>
+      {
+        controller.LoadAllCourses();
+      };
+      view.ShowDialog();
     }
 
     private void BtnStuRefresh_Click(object sender, RoutedEventArgs e)
@@ -150,6 +155,38 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       if (DgStudent.SelectedIndex != -1)
       {
         controller.EditStudent((Student) DgStudent.SelectedItem);
+      }
+    }
+
+    private void BtnAddCourse_Click(object sender, RoutedEventArgs e)
+    {
+      controller.AddCourse();
+    }
+
+    private void BtnEditCourse_Click(object sender, RoutedEventArgs e)
+    {
+      if (DgCourse.SelectedIndex != -1)
+      {
+        controller.EditCourse((Course)DgCourse.SelectedItem);
+      }
+    }
+
+    private void BtnRemoveCourse_Click(object sender, RoutedEventArgs e)
+    {
+      if (DgCourse.SelectedIndex != -1)
+      {
+        MessageBoxResult result = MessageBox.Show("确定删除该课程信息吗？", "确认", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result == MessageBoxResult.Yes)
+        {
+          try
+          {
+            controller.RemoveCourse((Course)DgCourse.SelectedItem);
+          }
+          catch (Exception exc)
+          {
+            MessageBox.Show(exc.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
+          }
+        }
       }
     }
   }

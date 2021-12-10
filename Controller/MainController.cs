@@ -76,17 +76,19 @@ namespace EveryDatabaseTeacherLovesStudentSystem
 
     public void AddCourse()
     {
-      throw new NotImplementedException();
+      view.ShowEditCourseView(db, Constraint.Utils.NewOrEdit.New, null);
     }
 
     public void EditCourse(Course course)
     {
-      throw new NotImplementedException();
+      view.ShowEditCourseView(db, Constraint.Utils.NewOrEdit.Edit, course);
     }
 
     public void RemoveCourse(Course course)
     {
-      throw new NotImplementedException();
+      Task task = db.CourseDao.DeleteOne(course);
+      task.Wait();
+      LoadAllCourses();
     }
   }
 }
