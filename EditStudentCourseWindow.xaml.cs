@@ -25,31 +25,22 @@ namespace EveryDatabaseTeacherLovesStudentSystem
     public EditStudentCourseWindow(NewOrEdit mode, StudentCourse stuCourse, Student stu, Course course)
     {
       InitializeComponent();
-      controller = new EditStudentCourseController(this, mode, stuCourse);
+      controller = new EditStudentCourseController(this, mode, stuCourse, stu, course);
 
-      if (mode == NewOrEdit.New)
+      if (stu != null)
       {
-        if (stu != null)
-        {
-          TbStuCls.IsEnabled = false;
-          TbStuNum.IsEnabled = false;
-          TbStuCls.Text = stu.Cls.ToString();
-          TbStuNum.Text = stu.Number.ToString();
-        }
-        else if (course != null)
-        {
-          CbCourse.IsEnabled = false;
-          for (int i = 0; i < CbCourse.Items.Count; i++)
-          {
-            if (((Course)CbCourse.Items[i]).Number == course.Number)
-            {
-              CbCourse.SelectedIndex = i;
-              break;
-            }
-          }
-        }
+        TbStuCls.IsEnabled = false;
+        TbStuNum.IsEnabled = false;
+        TbStuCls.Text = stu.Cls.ToString();
+        TbStuNum.Text = stu.Number.ToString();
+        LbStuName.Content = stu.Name;
       }
-      else
+      else if (course != null)
+      {
+        CbCourse.IsEnabled = false;
+      }
+
+      if (mode == NewOrEdit.Edit)
       {
         TbStuCls.IsEnabled = false;
         TbStuNum.IsEnabled = false;
@@ -63,22 +54,17 @@ namespace EveryDatabaseTeacherLovesStudentSystem
           TbStuCls.Text = stuCourse.StudentCls.ToString();
           TbStuNum.Text = stuCourse.StudentNumber.ToString();
           TbGrade.Text = stuCourse.Grade.ToString();
-
-          for (int i = 0; i < CbCourse.Items.Count; i++)
-          {
-            if (((Course)CbCourse.Items[i]).Number == stuCourse.CourseNumber)
-            {
-              CbCourse.SelectedIndex = i;
-              break;
-            }
-          }
         }
       }
+
+      TbStuCls.TextChanged += TbStuCls_TbStuNum_TextChanged;
+      TbStuNum.TextChanged += TbStuCls_TbStuNum_TextChanged;
     }
 
-    public void UpdateCourseItems(IEnumerable<Course> courses)
+    public void UpdateCourseItems(IEnumerable<Course> courses, Course selectedCourse)
     {
       CbCourse.ItemsSource = courses;
+      CbCourse.SelectedItem = selectedCourse;
     }
 
     public void UpdateStudentName(string studentName)
@@ -91,7 +77,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       Close();
     }
 
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
+    private async void BtnSave_Click(object sender, RoutedEventArgs e)
     {
       int stuCls, stuNum, courseNum, grade;
 
@@ -109,7 +95,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       {
         try
         {
-          controller.Save(new StudentCourse(stuCls, stuNum, courseNum, grade));
+          await controller.SaveAsync(new StudentCourse(stuCls, stuNum, courseNum, grade));
         }
         catch (Exception exc)
         {
@@ -123,12 +109,12 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       }
     }
 
-    private void TbStuCls_TbStuNum_TextChanged(object sender, TextChangedEventArgs e)
+    private async void TbStuCls_TbStuNum_TextChanged(object sender, TextChangedEventArgs e)
     {
       int stuCls, stuNum;
       if (int.TryParse(TbStuCls.Text, out stuCls) && int.TryParse(TbStuNum.Text, out stuNum))
       {
-        controller.OnStuClsAndStuNumChanged(stuCls, stuNum);
+        await controller.OnStuClsAndStuNumChangedAsync(stuCls, stuNum);
       }
     }
   }

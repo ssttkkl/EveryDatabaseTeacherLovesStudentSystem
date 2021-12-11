@@ -21,18 +21,16 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
       this.stu = stu;
     }
 
-    public void Save(Student stu)
+    public Task SaveAsync(Student stu)
     {
-      Task task;
       if (mode == NewOrEdit.New)
       {
-        task = MyDatabase.Instance.StudentDao.InsertOneAsync(stu);
+        return MyDatabase.Instance.StudentDao.InsertOneAsync(stu);
       }
       else
       {
-        task = MyDatabase.Instance.StudentDao.UpdateOneAsync(stu);
+        return MyDatabase.Instance.StudentDao.UpdateOneAsync(stu);
       }
-      task.Wait();
     }
   }
 }

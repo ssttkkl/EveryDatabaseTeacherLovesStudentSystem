@@ -13,41 +13,55 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
     private IEditStudentCourseView view;
     private NewOrEdit mode;
     private StudentCourse stuCourse;
+    private Student stu;
+    private Course course;
 
-    public EditStudentCourseController(IEditStudentCourseView view, NewOrEdit mode, StudentCourse stuCourse)
+    public EditStudentCourseController(IEditStudentCourseView view, NewOrEdit mode, StudentCourse stuCourse, Student stu, Course course)
     {
       this.view = view;
       this.mode = mode;
       this.stuCourse = stuCourse;
 
-      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetAllAsync();
-      task.Wait();
-      view.UpdateCourseItems(task.Result);
+      Task.Run(async () =>
+      {
+        var courses = await MyDatabase.Instance.CourseDao.GetAllAsync();
+        if (mode == NewOrEdit.Edit)
+        {
+          view.Dispatcher.Invoke(() => view.UpdateCourseItems(courses, courses.First(c => c.Number == stuCourse.CourseNumber)));
+        }
+        else
+        {
+          if (course != null)
+          {
+            view.Dispatcher.Invoke(() => view.UpdateCourseItems(courses, courses.First(c => c.Number == course.Number)));
+          }
+          else
+          {
+            view.Dispatcher.Invoke(() => view.UpdateCourseItems(courses, null));
+          }
+        }
+      });
     }
 
-    public void OnStuClsAndStuNumChanged(int stuCls, int stuNum)
+    public async Task OnStuClsAndStuNumChangedAsync(int stuCls, int stuNum)
     {
-      Task<Student> task = MyDatabase.Instance.StudentDao.GetOneByClsAndNumberAsync(stuCls, stuNum);
-      task.Wait();
-      Student stu = task.Result;
+      var stu = await MyDatabase.Instance.StudentDao.GetOneByClsAndNumberAsync(stuCls, stuNum);
       if (stu != null)
       {
         view.UpdateStudentName(stu.Name);
       }
     }
 
-    public void Save(StudentCourse stuCourse)
+    public Task SaveAsync(StudentCourse stuCourse)
     {
-      Task task;
       if (mode == NewOrEdit.New)
       {
-        task = MyDatabase.Instance.StudentCourseDao.InsertOneAsync(stuCourse);
+        return MyDatabase.Instance.StudentCourseDao.InsertOneAsync(stuCourse);
       }
       else
       {
-        task = MyDatabase.Instance.StudentCourseDao.UpdateOneAsync(stuCourse);
+        return MyDatabase.Instance.StudentCourseDao.UpdateOneAsync(stuCourse);
       }
-      task.Wait();
     }
   }
 }

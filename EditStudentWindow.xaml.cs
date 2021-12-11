@@ -52,7 +52,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       Close();
     }
 
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
+    private async void BtnSave_Click(object sender, RoutedEventArgs e)
     {
       int cls, number, age;
       string name = TbName.Text, sex = CbSex.Text, dept = TbDept.Text;
@@ -60,7 +60,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       {
         try
         {
-          controller.Save(new Student(cls, number, name, sex, age, dept));
+          await controller.SaveAsync(new Student(cls, number, name, sex, age, dept));
         }
         catch (Exception exc)
         {

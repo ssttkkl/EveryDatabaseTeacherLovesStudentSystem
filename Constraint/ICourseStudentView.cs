@@ -6,7 +6,7 @@ using System.Text;
 
 namespace EveryDatabaseTeacherLovesStudentSystem.Constraint
 {
-  interface ICourseStudentView
+  interface ICourseStudentView : IView
   {
     void UpdateStudentCourseData(IEnumerable<StudentCourse> data);
     void ShowEditStudentCourseView(NewOrEdit mode, StudentCourse stuCourse, Course course);

@@ -44,24 +44,14 @@ namespace EveryDatabaseTeacherLovesStudentSystem
           {
             CbPrevCourseNull.IsChecked = true;
           }
-          else
-          {
-            for (int i = 0; i < CbPrevCourse.Items.Count; i++)
-            {
-              if (((Course)CbPrevCourse.Items[i]).Number == course.PrevCourseNumber)
-              {
-                CbPrevCourse.SelectedIndex = i;
-                break;
-              }
-            }
-          }
         }
       }
     }
 
-    public void UpdatePrevCourseItems(IEnumerable<Course> courses)
+    public void UpdatePrevCourseItems(IEnumerable<Course> courses, Course selectedCourse)
     {
       CbPrevCourse.ItemsSource = courses;
+      CbPrevCourse.SelectedItem = selectedCourse;
     }
 
     private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -69,7 +59,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       Close();
     }
 
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
+    private async void BtnSave_Click(object sender, RoutedEventArgs e)
     {
       int number, credit;
       int? prevCourseNumber = null;
@@ -92,7 +82,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       {
         try
         {
-          controller.Save(new Course(number, name, prevCourseNumber, credit));
+          await controller.SaveAsync(new Course(number, name, prevCourseNumber, credit));
         }
         catch (Exception exc)
         {

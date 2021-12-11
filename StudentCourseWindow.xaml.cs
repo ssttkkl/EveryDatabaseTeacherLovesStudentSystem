@@ -34,15 +34,15 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       LbDept.Content = stu.Dept.ToString();
 
       controller = new StudentCourseController(this, stu);
-      controller.LoadAllStudentCourses();
+      controller.LoadAllStudentCoursesAsync();
     }
 
     public void ShowEditStudentCourseView(NewOrEdit mode, StudentCourse stuCourse, Student student)
     {
       EditStudentCourseWindow view = new EditStudentCourseWindow(mode, stuCourse, student, null);
-      view.Closed += (object sender, EventArgs e) =>
+      view.Closed += async (sender, e) =>
       {
-        controller.LoadAllStudentCourses();
+        await controller.LoadAllStudentCoursesAsync();
       };
       view.ShowDialog();
     }
@@ -52,32 +52,32 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       DgCourse.ItemsSource = data;
     }
 
-    private void BtnRefresh_Click(object sender, RoutedEventArgs e)
+    private async void BtnRefresh_Click(object sender, RoutedEventArgs e)
     {
-      controller.LoadAllStudentCourses();
+      await controller.LoadAllStudentCoursesAsync();
     }
 
-    private void BtnAdd_Click(object sender, RoutedEventArgs e)
+    private async void BtnAdd_Click(object sender, RoutedEventArgs e)
     {
       controller.AddStudentCourse();
-      controller.LoadAllStudentCourses();
+      await controller.LoadAllStudentCoursesAsync();
     }
 
-    private void BtnEdit_Click(object sender, RoutedEventArgs e)
+    private async void BtnEdit_Click(object sender, RoutedEventArgs e)
     {
       if (DgCourse.SelectedIndex != -1)
       {
         controller.EditStudentCourse((StudentCourse)DgCourse.SelectedItem);
-        controller.LoadAllStudentCourses();
+        await controller.LoadAllStudentCoursesAsync();
       }
     }
 
-    private void BtnRemove_Click(object sender, RoutedEventArgs e)
+    private async void BtnRemove_Click(object sender, RoutedEventArgs e)
     {
       if (DgCourse.SelectedIndex != -1)
       {
-        controller.RemoveStudentCourse((StudentCourse)DgCourse.SelectedItem);
-        controller.LoadAllStudentCourses();
+        await controller.RemoveStudentCourseAsync((StudentCourse)DgCourse.SelectedItem);
+        await controller.LoadAllStudentCoursesAsync();
       }
     }
   }

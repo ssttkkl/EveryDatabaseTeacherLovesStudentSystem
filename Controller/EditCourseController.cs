@@ -3,6 +3,7 @@ using EveryDatabaseTeacherLovesStudentSystem.Constraint.Utils;
 using EveryDatabaseTeacherLovesStudentSystem.Model;
 using System;
 using System.Collections.Generic;
+using System.Windows.Threading;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,28 +21,36 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
       this.mode = mode;
       this.course = course;
 
-      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetAllAsync();
-      task.Wait();
-      var courses = task.Result;
-      if (mode == NewOrEdit.Edit)
+      Task.Run(async () =>
       {
-        courses = courses.Where(c => c.Number != course.Number);
-      }
-      view.UpdatePrevCourseItems(courses);
+        var courses = (await MyDatabase.Instance.CourseDao.GetAllAsync());
+        if (mode == NewOrEdit.Edit)
+        {
+          courses = courses.Where(c => c.Number != course.Number);
+          if (course.PrevCourseNumber != null)
+            view.Dispatcher.Invoke(() => view.UpdatePrevCourseItems(courses, courses.First(c => c.Number == course.PrevCourseNumber)));
+          else
+          {
+            view.Dispatcher.Invoke(() => view.UpdatePrevCourseItems(courses, null));
+          }
+        }
+        else
+        {
+          view.Dispatcher.Invoke(() => view.UpdatePrevCourseItems(courses, null));
+        }
+      });
     }
 
-    public void Save(Course course)
+    public Task SaveAsync(Course course)
     {
-      Task task;
       if (mode == NewOrEdit.New)
       {
-        task = MyDatabase.Instance.CourseDao.InsertOneAsync(course);
+        return MyDatabase.Instance.CourseDao.InsertOneAsync(course);
       }
       else
       {
-        task = MyDatabase.Instance.CourseDao.UpdateOneAsync(course);
+        return MyDatabase.Instance.CourseDao.UpdateOneAsync(course);
       }
-      task.Wait();
     }
   }
 }

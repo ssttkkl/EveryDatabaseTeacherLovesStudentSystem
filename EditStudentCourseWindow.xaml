@@ -30,8 +30,8 @@
         <Label Content="课程" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center"/>
         <Label Content="成绩" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center"/>
 
-        <TextBox x:Name="TbStuCls" Grid.Column="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2" TextChanged="TbStuCls_TbStuNum_TextChanged"/>
-        <TextBox x:Name="TbStuNum" Grid.Column="1" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2" TextChanged="TbStuCls_TbStuNum_TextChanged"/>
+        <TextBox x:Name="TbStuCls" Grid.Column="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TbStuNum" Grid.Column="1" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Margin="16,0,8,0" Grid.ColumnSpan="2"/>
         <Label x:Name="LbStuName" Content="" Grid.Column="1" VerticalAlignment="Center" Margin="16,0,8,0" Grid.Row="2" />
         <ComboBox x:Name="CbCourse" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="16,0,8,0">
             <ComboBox.ItemTemplate>

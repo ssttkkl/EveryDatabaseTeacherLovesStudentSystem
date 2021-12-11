@@ -32,10 +32,10 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       InitializeComponent();
 
       LoginWindow login = new LoginWindow();
-      login.Closed += (sender, e) => {
+      login.Closed += async (sender, e) => {
         controller = new MainController(this);
-        controller.LoadAllStudents();
-        controller.LoadAllCourses();
+        await controller.LoadAllStudentsAsync();
+        await controller.LoadAllCoursesAsync();
       };
       login.ShowDialog();
     }
@@ -65,9 +65,9 @@ namespace EveryDatabaseTeacherLovesStudentSystem
     public void ShowEditStudentView(NewOrEdit mode, Student stu)
     {
       EditStudentWindow view = new EditStudentWindow( mode, stu);
-      view.Closed += (object sender, EventArgs e) =>
+      view.Closed += async (sender, e) =>
       {
-        controller.LoadAllStudents();
+        await controller.LoadAllStudentsAsync();
       };
       view.ShowDialog();
     }
@@ -75,28 +75,28 @@ namespace EveryDatabaseTeacherLovesStudentSystem
     public void ShowEditCourseView(NewOrEdit mode, Course course)
     {
       EditCourseWindow view = new EditCourseWindow(mode, course);
-      view.Closed += (object sender, EventArgs e) =>
+      view.Closed += async (sender, e) =>
       {
-        controller.LoadAllCourses();
+        await controller.LoadAllCoursesAsync();
       };
       view.ShowDialog();
     }
 
-    private void BtnStuRefresh_Click(object sender, RoutedEventArgs e)
+    private async void BtnStuRefresh_Click(object sender, RoutedEventArgs e)
     {
-      controller.LoadAllStudents();
+      await controller.LoadAllStudentsAsync();
     }
 
-    private void BtnRefreshCourse_Click(object sender, RoutedEventArgs e)
+    private async void BtnRefreshCourse_Click(object sender, RoutedEventArgs e)
     {
-      controller.LoadAllCourses();
+      await controller.LoadAllCoursesAsync();
     }
 
-    private void BtnSearchStu_Click(object sender, RoutedEventArgs e)
+    private async void BtnSearchStu_Click(object sender, RoutedEventArgs e)
     {
       if (int.TryParse(TbStuNum.Text, out int num))
       {
-        controller.SearchStudentByNumber(num);
+        await controller.SearchStudentByNumberAsync(num);
       }
       else
       {
@@ -104,11 +104,11 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       }
     }
 
-    private void BtnSearchCourse_Click(object sender, RoutedEventArgs e)
+    private async void BtnSearchCourse_Click(object sender, RoutedEventArgs e)
     {
       if (int.TryParse(TbCourseNum.Text, out int num))
       {
-        controller.SearchCourseByNumber(num);
+        await controller.SearchCourseByNumberAsync(num);
       }
       else
       {
@@ -132,7 +132,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       }
     }
 
-    private void BtnRemoveStu_Click(object sender, RoutedEventArgs e)
+    private async void BtnRemoveStu_Click(object sender, RoutedEventArgs e)
     {
       if (DgStudent.SelectedIndex != -1)
       {
@@ -141,8 +141,8 @@ namespace EveryDatabaseTeacherLovesStudentSystem
         {
           try
           {
-            controller.RemoveStudent((Student)DgStudent.SelectedItem);
-            controller.LoadAllStudents();
+            await controller.RemoveStudentAsync((Student)DgStudent.SelectedItem);
+            await controller.LoadAllStudentsAsync();
           }
           catch (Exception exc)
           {
@@ -178,7 +178,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       }
     }
 
-    private void BtnRemoveCourse_Click(object sender, RoutedEventArgs e)
+    private async void BtnRemoveCourse_Click(object sender, RoutedEventArgs e)
     {
       if (DgCourse.SelectedIndex != -1)
       {
@@ -187,8 +187,8 @@ namespace EveryDatabaseTeacherLovesStudentSystem
         {
           try
           {
-            controller.RemoveCourse((Course)DgCourse.SelectedItem);
-            controller.LoadAllCourses();
+            await controller.RemoveCourseAsync((Course)DgCourse.SelectedItem);
+            await controller.LoadAllCoursesAsync();
           }
           catch (Exception exc)
           {
@@ -198,7 +198,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       }
     }
 
-    private void BtnImport_Click(object sender, RoutedEventArgs e)
+    private async void BtnImport_Click(object sender, RoutedEventArgs e)
     {
       OpenFileDialog dialog = new OpenFileDialog();
       dialog.DefaultExt = "sql";
@@ -214,8 +214,8 @@ namespace EveryDatabaseTeacherLovesStudentSystem
           MessageBox.Show("导入失败！" + exc.Message, "失败", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        controller.LoadAllStudents();
-        controller.LoadAllCourses();
+        await controller.LoadAllStudentsAsync();
+        await controller.LoadAllCoursesAsync();
       }
     }
 

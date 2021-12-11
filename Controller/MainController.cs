@@ -18,32 +18,28 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       this.view = view;
     }
 
-    public void LoadAllCourses()
+    public async Task LoadAllCoursesAsync()
     {
-      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetAllAsync();
-      task.Wait();
-      view.UpdateCourseData(task.Result);
+      var result = await MyDatabase.Instance.CourseDao.GetAllAsync();
+      view.UpdateCourseData(result);
     }
 
-    public void LoadAllStudents()
+    public async Task LoadAllStudentsAsync()
     {
-      Task<IEnumerable<Student>> task = MyDatabase.Instance.StudentDao.GetAllAsync();
-      task.Wait();
-      view.UpdateStudentData(task.Result);
+      var result = await MyDatabase.Instance.StudentDao.GetAllAsync();
+      view.UpdateStudentData(result);
     }
 
-    public void SearchCourseByNumber(int number)
+    public async Task SearchCourseByNumberAsync(int number)
     {
-      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetByNumberAsync(number);
-      task.Wait();
-      view.UpdateCourseData(task.Result);
+      var result = await MyDatabase.Instance.CourseDao.GetByNumberAsync(number);
+      view.UpdateCourseData(result);
     }
 
-    public void SearchStudentByNumber(int number)
+    public async Task SearchStudentByNumberAsync(int number)
     {
-      Task<IEnumerable<Student>> task = MyDatabase.Instance.StudentDao.GetByNumberAsync(number);
-      task.Wait();
-      view.UpdateStudentData(task.Result);
+      var result = await MyDatabase.Instance.StudentDao.GetByNumberAsync(number);
+      view.UpdateStudentData(result);
     }
 
     public void ViewStudentDetail(Student stu)
@@ -66,10 +62,9 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       view.ShowEditStudentView(Constraint.Utils.NewOrEdit.Edit, stu);
     }
 
-    public void RemoveStudent(Student stu)
+    public Task RemoveStudentAsync(Student stu)
     {
-      Task task = MyDatabase.Instance.StudentDao.DeleteOneAsync(stu);
-      task.Wait();
+      return MyDatabase.Instance.StudentDao.DeleteOneAsync(stu);
     }
 
     public void AddCourse()
@@ -82,10 +77,9 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       view.ShowEditCourseView(Constraint.Utils.NewOrEdit.Edit, course);
     }
 
-    public void RemoveCourse(Course course)
+    public Task RemoveCourseAsync(Course course)
     {
-      Task task = MyDatabase.Instance.CourseDao.DeleteOneAsync(course);
-      task.Wait();
+      return MyDatabase.Instance.CourseDao.DeleteOneAsync(course);
     }
 
     public void Import(string fileName)

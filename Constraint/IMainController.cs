@@ -2,22 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EveryDatabaseTeacherLovesStudentSystem.Constraint
 {
   public interface IMainController
   {
-    void LoadAllStudents();
-    void SearchStudentByNumber(int number);
+    Task LoadAllStudentsAsync();
+    Task SearchStudentByNumberAsync(int number);
     void AddStudent();
     void EditStudent(Student stu);
-    void RemoveStudent(Student stu);
+    Task RemoveStudentAsync(Student stu);
     void ViewStudentDetail(Student stu);
-    void LoadAllCourses();
-    void SearchCourseByNumber(int number);
+    Task LoadAllCoursesAsync();
+    Task SearchCourseByNumberAsync(int number);
     void AddCourse();
     void EditCourse(Course course);
-    void RemoveCourse(Course course);
+    Task RemoveCourseAsync(Course course);
     void ViewCourseDetail(Course course);
     void Import(string fileName);
     void Export(string fileName);

@@ -18,11 +18,10 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       this.course = course;
     }
 
-    public void LoadAllStudentCourses()
+    public async Task LoadAllStudentCoursesAsync()
     {
-      Task<IEnumerable<StudentCourse>> task = MyDatabase.Instance.StudentCourseDao.GetByCourseAsync(course);
-      task.Wait();
-      view.UpdateStudentCourseData(task.Result);
+      var result = await MyDatabase.Instance.StudentCourseDao.GetByCourseAsync(course);
+      view.UpdateStudentCourseData(result);
     }
     public void AddStudentCourse()
     {
@@ -34,10 +33,9 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       view.ShowEditStudentCourseView(Constraint.Utils.NewOrEdit.Edit, stuCourse, course);
     }
 
-    public void RemoveStudentCourse(StudentCourse stuCourse)
+    public Task RemoveStudentCourseAsync(StudentCourse stuCourse)
     {
-      Task task = MyDatabase.Instance.StudentCourseDao.DeleteOneAsync(stuCourse);
-      task.Wait();
+      return MyDatabase.Instance.StudentCourseDao.DeleteOneAsync(stuCourse);
     }
   }
 }

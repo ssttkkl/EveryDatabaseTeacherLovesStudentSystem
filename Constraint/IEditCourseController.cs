@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EveryDatabaseTeacherLovesStudentSystem.Constraint
 {
   interface IEditCourseController
   {
-    void Save(Course course);
+    Task SaveAsync(Course course);
   }
 }
