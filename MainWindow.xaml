@@ -18,6 +18,8 @@
                         <Button x:Name="BtnRefreshStu" Content="重新加载" Padding="16,8" Margin="32,0,0,0" Click="BtnStuRefresh_Click"/>
                         <TextBox x:Name="TbStuNum" Padding="8,8" Margin="32,0,0,0" Width="150"/>
                         <Button x:Name="BtnSearchStu" Content="按学号查询" Padding="16,8" Click="BtnSearchStu_Click"/>
+                        <Button x:Name="BtnImport" Content="导入" Margin="32,0,0,0" Padding="16,8" Click="BtnImport_Click"/>
+                        <Button x:Name="BtnExport" Content="导出" Padding="16,8" Click="BtnExport_Click"/>
                     </StackPanel>
                     <DataGrid x:Name="DgStudent" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
                         <DataGrid.Columns >
@@ -41,6 +43,8 @@
                         <Button x:Name="BtnRefreshCourse" Content="重新加载" Padding="16,8" Margin="32,0,0,0" Click="BtnRefreshCourse_Click"/>
                         <TextBox x:Name="TbCourseNum" Padding="8,8" Margin="32,0,0,0" Width="150"/>
                         <Button x:Name="BtnSearchCourse" Content="按序号查询" Padding="16,8" Click="BtnSearchCourse_Click"/>
+                        <Button x:Name="BtnImport2" Content="导入" Margin="32,0,0,0" Padding="16,8" Click="BtnImport_Click"/>
+                        <Button x:Name="BtnExport2" Content="导出" Padding="16,8" Click="BtnExport_Click"/>
                     </StackPanel>
                     <DataGrid x:Name="DgCourse" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>

@@ -8,19 +8,18 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 {
   public class StudentDao : Dao
   {
-    public StudentDao(MySqlConnection conn) : base(conn)
-    {
-      try
-      {
-        string sql = "CREATE TABLE S(SCLASS INT, SNO INT, SNAME VARCHAR(10), SSEX VARCHAR(2), SAGE INT, SDEPT CHAR(2), PRIMARY KEY(SCLASS, SNO));";
-        MySqlCommand cmd = new MySqlCommand(sql, conn);
-        cmd.ExecuteNonQuery();
-      }
-      catch (MySqlException)
-      {
-        // pass
-      }
-    }
+    protected override string CreateTableSql =>
+      "CREATE TABLE S(" +
+      "SCLASS INT, " +
+      "SNO INT, " +
+      "SNAME VARCHAR(10), " +
+      "SSEX VARCHAR(2), " +
+      "SAGE INT, " +
+      "SDEPT CHAR(2), " +
+      "PRIMARY KEY(SCLASS, SNO)" +
+      ");";
+
+    public StudentDao(MySqlConnection conn) : base(conn) { }
 
     public async Task<IEnumerable<Student>> GetAllAsync()
     {
@@ -44,7 +43,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       return result;
     }
 
-    public async Task<IEnumerable<Student>> GetByNumber(int number)
+    public async Task<IEnumerable<Student>> GetByNumberAsync(int number)
     {
       string sql = "SELECT SCLASS, SNO, SNAME, SSEX, SAGE, SDEPT FROM S WHERE SNO = @number;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -67,7 +66,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       return result;
     }
 
-    public async Task<Student> GetOneByClsAndNumber(int cls, int number)
+    public async Task<Student> GetOneByClsAndNumberAsync(int cls, int number)
     {
       string sql = "SELECT SCLASS, SNO, SNAME, SSEX, SAGE, SDEPT FROM S WHERE SCLASS = @cls AND SNO = @number;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -93,7 +92,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       }
     }
 
-    public async Task InsertOne(Student stu)
+    public async Task InsertOneAsync(Student stu)
     {
       string sql = "INSERT INTO S(SCLASS, SNO, SNAME, SSEX, SAGE, SDEPT) VALUES (@cls, @number, @name, @sex, @age, @dept);";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -107,7 +106,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       await cmd.ExecuteNonQueryAsync();
     }
 
-    public async Task UpdateOne(Student stu)
+    public async Task UpdateOneAsync(Student stu)
     {
       string sql = "UPDATE S SET SNAME = @name, SSEX = @sex, SAGE = @age, SDEPT = @dept WHERE SCLASS = @cls AND SNO = @number;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -121,7 +120,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       await cmd.ExecuteNonQueryAsync();
     }
 
-    public async Task DeleteOne(Student stu)
+    public async Task DeleteOneAsync(Student stu)
     {
       string sql = "DELETE FROM S WHERE S.SCLASS = @stuCls AND S.SNO = @stuNumber;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);

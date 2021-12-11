@@ -2,6 +2,7 @@
 using EveryDatabaseTeacherLovesStudentSystem.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,14 +34,14 @@ namespace EveryDatabaseTeacherLovesStudentSystem
 
     public void SearchCourseByNumber(int number)
     {
-      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetByNumber(number);
+      Task<IEnumerable<Course>> task = MyDatabase.Instance.CourseDao.GetByNumberAsync(number);
       task.Wait();
       view.UpdateCourseData(task.Result);
     }
 
     public void SearchStudentByNumber(int number)
     {
-      Task<IEnumerable<Student>> task = MyDatabase.Instance.StudentDao.GetByNumber(number);
+      Task<IEnumerable<Student>> task = MyDatabase.Instance.StudentDao.GetByNumberAsync(number);
       task.Wait();
       view.UpdateStudentData(task.Result);
     }
@@ -67,7 +68,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
 
     public void RemoveStudent(Student stu)
     {
-      Task task = MyDatabase.Instance.StudentDao.DeleteOne(stu);
+      Task task = MyDatabase.Instance.StudentDao.DeleteOneAsync(stu);
       task.Wait();
     }
 
@@ -83,8 +84,18 @@ namespace EveryDatabaseTeacherLovesStudentSystem
 
     public void RemoveCourse(Course course)
     {
-      Task task = MyDatabase.Instance.CourseDao.DeleteOne(course);
+      Task task = MyDatabase.Instance.CourseDao.DeleteOneAsync(course);
       task.Wait();
+    }
+
+    public void Import(string fileName)
+    {
+      MyDatabase.Instance.Import(fileName);
+    }
+
+    public void Export(string fileName)
+    {
+      MyDatabase.Instance.Export(fileName);
     }
   }
 }

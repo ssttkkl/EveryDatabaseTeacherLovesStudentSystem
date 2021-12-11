@@ -27,7 +27,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
 
     public void OnStuClsAndStuNumChanged(int stuCls, int stuNum)
     {
-      Task<Student> task = MyDatabase.Instance.StudentDao.GetOneByClsAndNumber(stuCls, stuNum);
+      Task<Student> task = MyDatabase.Instance.StudentDao.GetOneByClsAndNumberAsync(stuCls, stuNum);
       task.Wait();
       Student stu = task.Result;
       if (stu != null)
@@ -41,11 +41,11 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
       Task task;
       if (mode == NewOrEdit.New)
       {
-        task = MyDatabase.Instance.StudentCourseDao.InsertOne(stuCourse);
+        task = MyDatabase.Instance.StudentCourseDao.InsertOneAsync(stuCourse);
       }
       else
       {
-        task = MyDatabase.Instance.StudentCourseDao.UpdateOne(stuCourse);
+        task = MyDatabase.Instance.StudentCourseDao.UpdateOneAsync(stuCourse);
       }
       task.Wait();
     }

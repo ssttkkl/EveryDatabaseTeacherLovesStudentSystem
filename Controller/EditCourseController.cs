@@ -35,11 +35,11 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
       Task task;
       if (mode == NewOrEdit.New)
       {
-        task = MyDatabase.Instance.CourseDao.InsertOne(course);
+        task = MyDatabase.Instance.CourseDao.InsertOneAsync(course);
       }
       else
       {
-        task = MyDatabase.Instance.CourseDao.UpdateOne(course);
+        task = MyDatabase.Instance.CourseDao.UpdateOneAsync(course);
       }
       task.Wait();
     }

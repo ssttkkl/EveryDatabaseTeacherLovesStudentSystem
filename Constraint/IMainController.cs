@@ -19,5 +19,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Constraint
     void EditCourse(Course course);
     void RemoveCourse(Course course);
     void ViewCourseDetail(Course course);
+    void Import(string fileName);
+    void Export(string fileName);
   }
 }

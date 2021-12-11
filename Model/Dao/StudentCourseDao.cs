@@ -8,21 +8,18 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
 {
   public class StudentCourseDao : Dao
   {
-    public StudentCourseDao(MySqlConnection conn) : base(conn)
-    {
-      try
-      {
-        string sql = "CREATE TABLE SC(SCLASS INT, SNO INT, CNO INT, GRADE INT, PRIMARY KEY(SCLASS, SNO, CNO));";
-        MySqlCommand cmd = new MySqlCommand(sql, conn);
-        cmd.ExecuteNonQuery();
-      }
-      catch (MySqlException)
-      {
-        // pass
-      }
-    }
+    protected override string CreateTableSql => 
+      "CREATE TABLE SC(" +
+      "SCLASS INT, " +
+      "SNO INT, " +
+      "CNO INT, " +
+      "GRADE INT, " +
+      "PRIMARY KEY(SCLASS, SNO, CNO)" +
+      ");";
 
-    public async Task<IEnumerable<StudentCourse>> GetByStudent(Student stu)
+    public StudentCourseDao(MySqlConnection conn) : base(conn) { }
+
+    public async Task<IEnumerable<StudentCourse>> GetByStudentAsync(Student stu)
     {
       string sql = "SELECT SC.SCLASS, SC.SNO, SC.CNO, SC.GRADE, C.CNAME, C.CCREDIT FROM SC, C " +
         "WHERE SC.CNO = C.CNO AND SC.SCLASS = @stuCls AND SC.SNO = @stuNumber;";
@@ -48,7 +45,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       return result;
     }
 
-    public async Task<IEnumerable<StudentCourse>> GetByCourse(Course course)
+    public async Task<IEnumerable<StudentCourse>> GetByCourseAsync(Course course)
     {
       string sql = "SELECT SC.SCLASS, SC.SNO, SC.CNO, SC.GRADE, S.SNAME FROM SC, S " +
         "WHERE SC.SCLASS = S.SCLASS AND SC.SNO = S.SNO AND SC.CNO = @courseNumber;";
@@ -73,7 +70,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       return result;
     }
 
-    public async Task InsertOne(StudentCourse stuCourse)
+    public async Task InsertOneAsync(StudentCourse stuCourse)
     {
       string sql = "INSERT INTO SC(SCLASS, SNO, CNO, GRADE) VALUES (@stuCls, @stuNumber, @courseNumber, @grade);";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -85,7 +82,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       await cmd.ExecuteNonQueryAsync();
     }
 
-    public async Task UpdateOne(StudentCourse stuCourse)
+    public async Task UpdateOneAsync(StudentCourse stuCourse)
     {
       string sql = "UPDATE SC SET GRADE = @grade WHERE SC.SCLASS = @stuCls AND SC.SNO = @stuNumber AND SC.CNO = @courseNumber;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -97,7 +94,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Model.Dao
       await cmd.ExecuteNonQueryAsync();
     }
 
-    public async Task DeleteOne(StudentCourse stuCourse)
+    public async Task DeleteOneAsync(StudentCourse stuCourse)
     {
       string sql = "DELETE FROM SC WHERE SC.SCLASS = @stuCls AND SC.SNO = @stuNumber AND SC.CNO = @courseNumber;";
       MySqlCommand cmd = new MySqlCommand(sql, conn);

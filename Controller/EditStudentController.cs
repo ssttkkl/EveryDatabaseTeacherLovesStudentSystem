@@ -26,11 +26,11 @@ namespace EveryDatabaseTeacherLovesStudentSystem.Controller
       Task task;
       if (mode == NewOrEdit.New)
       {
-        task = MyDatabase.Instance.StudentDao.InsertOne(stu);
+        task = MyDatabase.Instance.StudentDao.InsertOneAsync(stu);
       }
       else
       {
-        task = MyDatabase.Instance.StudentDao.UpdateOne(stu);
+        task = MyDatabase.Instance.StudentDao.UpdateOneAsync(stu);
       }
       task.Wait();
     }

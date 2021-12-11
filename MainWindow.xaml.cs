@@ -1,6 +1,7 @@
 ﻿using EveryDatabaseTeacherLovesStudentSystem.Constraint;
 using EveryDatabaseTeacherLovesStudentSystem.Constraint.Utils;
 using EveryDatabaseTeacherLovesStudentSystem.Model;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -193,6 +194,45 @@ namespace EveryDatabaseTeacherLovesStudentSystem
           {
             MessageBox.Show(exc.Message, "发生错误", MessageBoxButton.OK, MessageBoxImage.Error);
           }
+        }
+      }
+    }
+
+    private void BtnImport_Click(object sender, RoutedEventArgs e)
+    {
+      OpenFileDialog dialog = new OpenFileDialog();
+      dialog.DefaultExt = "sql";
+      if (dialog.ShowDialog() == true)
+      {
+        try
+        {
+          controller.Import(dialog.FileName);
+          MessageBox.Show("导入成功！", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception exc)
+        {
+          MessageBox.Show("导入失败！" + exc.Message, "失败", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        controller.LoadAllStudents();
+        controller.LoadAllCourses();
+      }
+    }
+
+    private void BtnExport_Click(object sender, RoutedEventArgs e)
+    {
+      SaveFileDialog dialog = new SaveFileDialog();
+      dialog.DefaultExt = "sql";
+      if (dialog.ShowDialog() == true)
+      {
+        try
+        {
+          controller.Export(dialog.FileName);
+          MessageBox.Show("导出成功！", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception exc)
+        {
+          MessageBox.Show("导出失败！" + exc.Message, "失败", MessageBoxButton.OK, MessageBoxImage.Error);
         }
       }
     }

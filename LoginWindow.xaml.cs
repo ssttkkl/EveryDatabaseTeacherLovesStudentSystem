@@ -23,14 +23,14 @@ namespace EveryDatabaseTeacherLovesStudentSystem
       InitializeComponent();
     }
 
-    private void BtnConn_Click(object sender, RoutedEventArgs e)
+    private async void BtnConn_Click(object sender, RoutedEventArgs e)
     {
       int port;
       if (int.TryParse(TbPort.Text, out port))
       {
         try
         {
-          MyDatabase.Instance.OpenConnection(TbHost.Text, port, TbUser.Text, TbPasswd.Password, TbDbName.Text);
+          await MyDatabase.Instance.OpenConnectionAsync(TbHost.Text, port, TbUser.Text, TbPasswd.Password, TbDbName.Text);
           Close();
         }
         catch (Exception exc)

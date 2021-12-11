@@ -20,7 +20,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
 
     public void LoadAllStudentCourses()
     {
-      Task<IEnumerable<StudentCourse>> task = MyDatabase.Instance.StudentCourseDao.GetByCourse(course);
+      Task<IEnumerable<StudentCourse>> task = MyDatabase.Instance.StudentCourseDao.GetByCourseAsync(course);
       task.Wait();
       view.UpdateStudentCourseData(task.Result);
     }
@@ -36,7 +36,7 @@ namespace EveryDatabaseTeacherLovesStudentSystem
 
     public void RemoveStudentCourse(StudentCourse stuCourse)
     {
-      Task task = MyDatabase.Instance.StudentCourseDao.DeleteOne(stuCourse);
+      Task task = MyDatabase.Instance.StudentCourseDao.DeleteOneAsync(stuCourse);
       task.Wait();
     }
   }
